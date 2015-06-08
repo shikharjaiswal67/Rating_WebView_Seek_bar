@@ -1,5 +1,6 @@
 package com.example.sj.rating_webview_seek_bar;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,14 +9,16 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 
     RatingBar ratingbr;
     Button btn;
     WebView web1;
+    SeekBar seekbr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +28,26 @@ public class MainActivity extends ActionBarActivity {
         ratings();
 
         web1= (WebView)findViewById(R.id.webView);
-
         web1.loadUrl("http://www.google.co.in");
+
+        seekbr=(SeekBar)findViewById(R.id.seekBar);
+        seekbr.setOnSeekBarChangeListener(this);
+    }
+
+    public void onProgressChanged(SeekBar sekBar, int progress, boolean fromUser)
+    {
+
+        Toast.makeText(getApplicationContext(),"Seekbar Progress:" + progress, Toast.LENGTH_LONG).show();
+    }
+
+    public void onStartTrackingTouch(SeekBar sekBar)
+    {
+        Toast.makeText(getApplicationContext(),"Seekbar Progress Started:", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onStopTrackingTouch(SeekBar sekBar)
+    {
+        Toast.makeText(getApplicationContext(),"Seekbar Progress Stopped:", Toast.LENGTH_SHORT).show();
     }
 
     public void ratings(){
